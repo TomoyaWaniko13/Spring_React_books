@@ -31,15 +31,15 @@ const Carousel = () => {
 
   return (
     <div className={'bg-black text-white py-12 px-4 w-full flex flex-col'}>
-      <h3 className={'text-center font-extralight text-5xl pb-10'}>
+      <h3 className={'text-center font-bold font-mono text-5xl pb-10'}>
         find your next "I stayed up too late reading" book.
       </h3>
       <div className={'w-full max-w-[1400px] h-[780px] m-auto relative group'}>
         {/*TODO make this image responsive when the screen gets smaller*/}
         <div
           style={{ backgroundImage: `url(${slides[currentIndex].url}` }}
-          className={'w-full h-full rounded-2xl bg-cover duration-300 '}
-        />
+          className={'w-full h-full rounded-2xl bg-cover duration-300'}
+        ></div>
         <div
           className={
             'hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'
