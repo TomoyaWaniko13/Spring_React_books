@@ -1,72 +1,87 @@
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import { useEffect, useState } from 'react';
+import BookModel from '../models/BookModel.ts';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { useState } from 'react';
-import { RxDotFilled } from 'react-icons/rx';
 
 const Carousel = () => {
-  const slides = [
-    { url: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Cat_August_2010-4.jpg' },
-    { url: 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Felis_catus-cat_on_snow.jpg' },
-    { url: 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Gato_enervado_pola_presencia_dun_can.jpg' },
-    { url: 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Black_Cat_%287983739954%29.jpg' },
-  ];
-
+  const [books, setBooks] = useState<BookModel[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const prevSlide = () => {
-    const isFirstSlide = currentIndex === 0;
-    const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
-    setCurrentIndex(newIndex);
+  useEffect(() => {
+    const fetchBooks = async () => {
+      const baseUrl: string = 'http://localhost:8080/api/books';
+      const url: string = `${baseUrl}?page=0&size=9`;
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Something went wrong!');
+        }
+        const responseJson = await response.json();
+        const responseData = responseJson._embedded.books;
+        const loadedBooks: BookModel[] = responseData.map((book: any) => ({
+          id: book.id,
+          title: book.title,
+          author: book.author,
+          description: book.description,
+          copies: book.copies,
+          copiesAvailable: book.copiesAvailable,
+          category: book.category,
+          img: book.img,
+        }));
+        setBooks(loadedBooks);
+        setIsLoading(false);
+      } catch (error: any) {
+        setIsLoading(false);
+        setHttpError(error.message);
+      }
+    };
+
+    fetchBooks();
+  }, []);
+
+  const prevBook = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? books.length - 1 : prevIndex - 1));
   };
 
-  const nextSlide = () => {
-    const isLastSlide = currentIndex === slides.length - 1;
-    const newIndex = isLastSlide ? 0 : currentIndex + 1;
-    setCurrentIndex(newIndex);
+  const nextBook = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === books.length - 1 ? 0 : prevIndex + 1));
   };
 
-  const goToSlide = (slideIndex: number) => {
-    setCurrentIndex(slideIndex);
-  };
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (httpError) {
+    return <div className='text-4xl'>{httpError}</div>;
+  }
 
   return (
-    <div className={'bg-black text-white py-12 px-4 w-full flex flex-col'}>
-      <h3 className={'text-center font-bold font-mono text-5xl pb-10'}>
-        find your next "I stayed up too late reading" book.
+    <div className='bg-black text-white py-12 px-4 w-full flex flex-col'>
+      <h3 className='text-center font-bold font-mono text-5xl pb-10'>
+        Find your next "I stayed up too late reading" book.
       </h3>
-      <div className={'w-full max-w-[1400px] h-[780px] m-auto relative group'}>
-        {/*TODO make this image responsive when the screen gets smaller*/}
+      <div className='w-full max-w-[1400px] h-[780px] m-auto relative group'>
         <div
-          style={{ backgroundImage: `url(${slides[currentIndex].url}` }}
-          className={'w-full h-full rounded-2xl bg-cover duration-300'}
+          style={{ backgroundImage: `url(${books[currentIndex].img})` }}
+          className='w-full h-full rounded-2xl bg-cover duration-300'
         ></div>
         <div
-          className={
-            'hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'
-          }
-          onClick={prevSlide}
+          className='hidden group-hover:block absolute top-[50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'
+          onClick={prevBook}
         >
           <FaChevronLeft size={30} />
         </div>
         <div
-          className={
-            'hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'
-          }
-          onClick={nextSlide}
+          className='hidden group-hover:block absolute top-[50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'
+          onClick={nextBook}
         >
           <FaChevronRight size={30} />
         </div>
-        <div className={'flex top-4 justify-center py-2'}>
-          {slides.map((slide, slideIndex) => (
-            <div key={slideIndex} onClick={() => goToSlide(slideIndex)} className={'text-2xl cursor-pointer'}>
-              <RxDotFilled size={20} />
-            </div>
-          ))}
-        </div>
       </div>
-      <div className={'flex justify-center space-x-4 pt-14'}>
-        <button className={'bg-white text-black p-3 rounded'}>reserve</button>
-        <button className={'bg-white text-black p-3 rounded'}>view more</button>
+      <div className='flex justify-center space-x-4 pt-14'>
+        <button className='bg-white text-black p-3 rounded'>Reserve</button>
+        <button className='bg-white text-black p-3 rounded'>View More</button>
       </div>
     </div>
   );
