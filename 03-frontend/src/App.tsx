@@ -4,6 +4,7 @@ import Carousel from './components/Carousel.tsx';
 import Heros from './components/Heros.tsx';
 import Footer from './components/Footer.tsx';
 import LibraryService from './components/LibraryService.tsx';
+import SearchBookPage from './components/SearchBookPage.tsx';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
       <Heros />
       <LibraryService />
       <Footer />
+      <SearchBookPage />
     </>
   );
 }

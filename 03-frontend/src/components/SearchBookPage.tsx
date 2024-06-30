@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
 import BookModel from '../models/BookModel.ts';
-import ReturnBook from './ReturnBook.tsx';
+import { useEffect, useState } from 'react';
 
-const Carousel = () => {
+const SearchBookPage = () => {
   const [books, setBooks] = useState<BookModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState<string | null>(null);
@@ -48,16 +47,16 @@ const Carousel = () => {
   }
 
   return (
-    <div className='bg-black text-white py-12 px-4 w-full flex flex-col'>
-      <h3 className='text-center font-bold font-mono text-5xl pb-10'>
-        Find your next "I stayed up too late reading" book.
-      </h3>
-
-      {books.slice(0, 3).map((book) => (
-        <ReturnBook book={book} key={book.id} />
-      ))}
+    <div className={'p-10'}>
+      <input
+        type='search'
+        placeholder={'Search'}
+        className={
+          'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 '
+        }
+      />
     </div>
   );
 };
 
-export default Carousel;
+export default SearchBookPage;
