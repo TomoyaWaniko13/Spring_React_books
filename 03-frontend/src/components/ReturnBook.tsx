@@ -14,10 +14,10 @@ const ReturnBook: React.FC<{ book: BookModel }> = (props) => {
         <p className={'text-xl'}>{props.book.author}</p>
       </div>
       <div className='flex justify-center space-x-4'>
-        <Button variant={'secondary'} size={'lg'}>
+        <Button variant={'default'} size={'lg'}>
           reserve
         </Button>
-        <Button variant={'secondary'} size={'lg'}>
+        <Button variant={'default'} size={'lg'}>
           view more
         </Button>
       </div>

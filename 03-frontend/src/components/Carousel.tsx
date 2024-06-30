@@ -48,11 +48,8 @@ const Carousel = () => {
   }
 
   return (
-    <div className='bg-black text-white py-12 px-4 w-full flex flex-col'>
-      <h3 className='text-center font-bold font-mono text-5xl pb-10'>
-        Find your next "I stayed up too late reading" book.
-      </h3>
-
+    <div className='py-12 px-4 w-full flex flex-col'>
+      <h3 className='text-center font-bold text-5xl pb-10'>Find your next "I stayed up too late reading" book.</h3>
       {books.slice(0, 3).map((book) => (
         <ReturnBook book={book} key={book.id} />
       ))}
