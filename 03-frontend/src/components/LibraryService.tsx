@@ -12,7 +12,9 @@ const LibraryService = () => {
           <p>If you cannot find what you are looking for, send our library admin's a personal message!</p>
         </CardContent>
         <CardFooter className='flex justify-center'>
-          <Button variant={'default'}>sign up</Button>
+          <Button variant={'default'} size={'lg'}>
+            sign up
+          </Button>
         </CardFooter>
       </Card>
     </div>
