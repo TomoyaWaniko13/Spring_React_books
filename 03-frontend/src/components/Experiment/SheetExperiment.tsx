@@ -1,9 +1,9 @@
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet.tsx';
+import { NavLink } from 'react-router-dom';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet.tsx';
 
-const Navbar = () => {
+const SheetExperiment = () => {
   const [nav, setNav] = useState(true);
 
   const handleNav = () => {
@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={'flex justify-end items-center text-white bg-black px-10 h-28'}>
+    <nav className={'flex justify-end items-center text-white bg-black p-3 h-28'}>
       <h1 className={'w-full text-6xl font-extrabold text-white'}>Luv 2 Read</h1>
       <ul className={'hidden md:flex justify-between items-center'}>
         <li className={'p-4'}>
@@ -38,7 +38,7 @@ const Navbar = () => {
       </ul>
       <div onClick={handleNav} className={'block md:hidden'}>
         <Sheet>
-          <SheetTrigger>{nav ? <AiOutlineMenu size={35} /> : <AiOutlineClose size={35} />}</SheetTrigger>
+          <SheetTrigger>{nav ? <AiOutlineMenu size={40} /> : <AiOutlineClose size={40} />}</SheetTrigger>
           <SheetContent className='w-[350px] sm:w-[440px]' side={'left'}>
             <SheetHeader>
               <SheetTitle>
@@ -62,4 +62,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default SheetExperiment;

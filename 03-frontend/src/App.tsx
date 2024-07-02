@@ -4,6 +4,7 @@ import SearchBookPage from './components/searchBookPage/SearchBookPage.tsx';
 import HomePage from './components/homepage/HomePage.tsx';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import BookCheckoutPage from './components/BookCheckoutPage/BookCheckoutPage.tsx';
+import SheetExperiment from './components/Experiment/SheetExperiment.tsx';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         </Routes>
       </div>
       <Footer />
+      <SheetExperiment />
     </div>
   );
 }
