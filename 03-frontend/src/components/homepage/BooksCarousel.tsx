@@ -81,7 +81,7 @@ const BooksCarousel = () => {
         <CarouselNext />
       </Carousel>
       <div className={'flex justify-center items-center space-x-4 text-center'}>
-        <Button variant={'outline'} size={'lg'}>
+        <Button variant={'link'} size={'lg'}>
           <Link to={'/search'}>view more</Link>
         </Button>
       </div>

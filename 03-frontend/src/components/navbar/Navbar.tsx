@@ -12,7 +12,7 @@ const Navbar = () => {
 
   return (
     <nav className={'flex justify-end items-center text-white bg-black px-10 h-28'}>
-      <h1 className={'w-full text-6xl font-extrabold text-white'}>Luv 2 Read</h1>
+      <h1 className={'w-full text-3xl sm:text-4xl font-extrabold text-white'}>Luv 2 Read</h1>
       <ul className={'hidden md:flex justify-between items-center'}>
         <li className={'p-4'}>
           <NavLink

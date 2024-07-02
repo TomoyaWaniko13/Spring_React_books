@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import BookModel from '../../models/BookModel.ts';
+import StarsReview from '../Utils/StarsReview.tsx';
 
 const BookCheckoutPage = () => {
   const [book, setBook] = useState<BookModel>();
@@ -50,7 +51,17 @@ const BookCheckoutPage = () => {
     return <div className='text-4xl'>{httpError}</div>;
   }
 
-  return <div>this</div>;
+  return (
+    <section className={'px-10 py-10 flex flex-col lg:flex-row justify-center items-center space-x-10 space-y-10'}>
+      <img src={book?.img} alt='' width={300} />
+      <div className={'flex flex-col space-y-4'}>
+        <h2 className={'text-4xl font-extrabold'}>{book?.title}</h2>
+        <span className={'text-xl font-extralight '}>{book?.author}</span>
+        <p className={'text-xl'}>{book?.description}</p>
+        <StarsReview rating={4} size={1} />
+      </div>
+    </section>
+  );
 };
 
 export default BookCheckoutPage;

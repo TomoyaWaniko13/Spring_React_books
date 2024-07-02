@@ -7,7 +7,7 @@ const LandingPage = () => {
       <p className={'text-3xl sm:text-4xl md:text-9xl font-extrabold'}>find your next adventure</p>
       <h1 className={'text-3xl'}>where would you like to go next?</h1>
       <div className={'w-1/2'}>
-        <Button variant='default' size={'lg'}>
+        <Button variant='link' size={'lg'}>
           <Link to={'/search'}>explore top books</Link>
         </Button>
       </div>

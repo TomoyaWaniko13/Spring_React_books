@@ -1,7 +1,7 @@
 import BookModel from '../../models/BookModel.ts';
 import { useEffect, useState } from 'react';
 import { Button } from '../ui/button.tsx';
-import BookPagination from './BookPagination.tsx';
+import BookPagination from '../Utils/BookPagination.tsx';
 import SearchBar from '../SearchBar.tsx';
 import BookList from '../BookList.tsx';
 
