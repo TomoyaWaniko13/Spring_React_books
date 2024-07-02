@@ -1,4 +1,4 @@
-import { Button } from './ui/button.tsx';
+import { Button } from '../ui/button.tsx';
 
 const HomePage = () => {
   return (

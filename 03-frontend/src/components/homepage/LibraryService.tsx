@@ -1,5 +1,5 @@
-import { Button } from './ui/button.tsx';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card.tsx';
+import { Button } from '../ui/button.tsx';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card.tsx';
 
 const LibraryService = () => {
   return (

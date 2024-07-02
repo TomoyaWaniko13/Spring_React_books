@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import BookModel from '../models/BookModel.ts';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel.tsx';
-import { Card, CardContent } from './ui/card.tsx';
-import { Button } from './ui/button.tsx';
+import BookModel from '../../models/BookModel.ts';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel.tsx';
+import { Card, CardContent } from '../ui/card.tsx';
+import { Button } from '../ui/button.tsx';
 
 const BooksCarousel = () => {
   const [books, setBooks] = useState<BookModel[]>([]);
