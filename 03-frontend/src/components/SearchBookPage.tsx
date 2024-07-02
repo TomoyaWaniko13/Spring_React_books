@@ -26,11 +26,20 @@ const SearchBookPage = () => {
 
   const [category, setCategory] = useState('bottom');
 
+  const [searchInput, setSearchInput] = useState('');
+  const [searchUrl, setSearchUrl] = useState('');
+
   useEffect(() => {
     const fetchBooks = async () => {
       const baseUrl: string = 'http://localhost:8080/api/books';
 
-      const url: string = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
+      let url: string = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
+
+      if (searchUrl === '') {
+        url = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
+      } else {
+        url = baseUrl + searchUrl;
+      }
 
       try {
         const response = await fetch(url);
@@ -64,7 +73,7 @@ const SearchBookPage = () => {
     };
 
     fetchBooks();
-  }, [currentPage]);
+  }, [currentPage, searchUrl]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -73,6 +82,14 @@ const SearchBookPage = () => {
   if (httpError) {
     return <div className='text-4xl'>{httpError}</div>;
   }
+
+  const handleSearchChange = () => {
+    if (searchInput === '') {
+      setSearchUrl('');
+    } else {
+      setSearchUrl(`/search/findByTitleContaining?title=${searchInput}&page=0&size=${booksPerPage}`);
+    }
+  };
 
   const indexOfLastBook: number = currentPage * booksPerPage;
   const indexOfFirstBook: number = indexOfLastBook - booksPerPage;
@@ -85,8 +102,15 @@ const SearchBookPage = () => {
   return (
     <div className={'flex flex-col items-center space-y-4 p-7 w-full'}>
       <div className={'flex flex-row justify-start items-center space-x-4 w-full'}>
-        <Input placeholder={'search'} type={'search'} className={'max-w-3xl'} />
-        <Button type='submit'>search</Button>
+        <Input
+          placeholder={'search'}
+          type={'search'}
+          className={'max-w-3xl'}
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
+        <Button type='submit' onClick={() => handleSearchChange()}>
+          search
+        </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant={'outline'}>Book Category</Button>
