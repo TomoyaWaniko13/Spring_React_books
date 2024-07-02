@@ -3,6 +3,7 @@ import BookModel from '../../models/BookModel.ts';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel.tsx';
 import { Card, CardContent } from '../ui/card.tsx';
 import { Button } from '../ui/button.tsx';
+import { Link } from 'react-router-dom';
 
 const BooksCarousel = () => {
   const [books, setBooks] = useState<BookModel[]>([]);
@@ -81,7 +82,7 @@ const BooksCarousel = () => {
       </Carousel>
       <div className={'flex justify-center items-center space-x-4 text-center'}>
         <Button variant={'outline'} size={'lg'}>
-          view more
+          <Link to={'/search'}>view more</Link>
         </Button>
       </div>
     </div>

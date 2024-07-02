@@ -1,21 +1,13 @@
 import { Button } from './ui/button.tsx';
 import { Input } from './ui/input.tsx';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from './ui/dropdown-menu.tsx';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select.tsx';
 
 interface SearchBarProps {
   searchInput: string;
   setSearchInput: (input: string) => void;
   handleSearchChange: () => void;
   category: string;
-  setCategory: (category: string) => void;
+  handleCategoryChange: (category: string) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -23,7 +15,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   setSearchInput,
   handleSearchChange,
   category,
-  setCategory,
+  handleCategoryChange,
 }) => {
   return (
     <form
@@ -41,22 +33,18 @@ const SearchBar: React.FC<SearchBarProps> = ({
         onChange={(e) => setSearchInput(e.target.value)}
       />
       <Button type='submit'>Search</Button>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant={'outline'}>Book Category</Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className='w-56'>
-          <DropdownMenuLabel>Book Category</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuRadioGroup value={category} onValueChange={setCategory}>
-            <DropdownMenuRadioItem value='all'>All</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value='front end'>Front End</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value='back end'>Back End</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value='data'>Data</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value='devops'>DevOps</DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <Select onValueChange={handleCategoryChange}>
+        <SelectTrigger className='w-[180px]'>
+          <SelectValue placeholder='Book Category' />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value='All'>All</SelectItem>
+          <SelectItem value='FE'>Front End</SelectItem>
+          <SelectItem value='BE'>Back End</SelectItem>
+          <SelectItem value='Data'>Data</SelectItem>
+          <SelectItem value='DevOps'>DevOps</SelectItem>
+        </SelectContent>
+      </Select>
     </form>
   );
 };

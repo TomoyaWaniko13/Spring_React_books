@@ -1,21 +1,23 @@
 import Navbar from './components/navbar/Navbar.tsx';
-import HomePage from './components/homepage/HomePage.tsx';
-import BooksCarousel from './components/homepage/BooksCarousel.tsx';
-import Heros from './components/homepage/Heros.tsx';
 import Footer from './components/footer/Footer.tsx';
-import LibraryService from './components/homepage/LibraryService.tsx';
 import SearchBookPage from './components/searchBookPage/SearchBookPage.tsx';
+import HomePage from './components/homepage/HomePage.tsx';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import BookCheckoutPage from './components/BookCheckoutPage/BookCheckoutPage.tsx';
 
 export default function App() {
   return (
-    <>
+    <div className={'flex flex-col min-h-screen'}>
       <Navbar />
-      <HomePage />
-      <BooksCarousel />
-      <Heros />
-      <LibraryService />
+      <div className={'flex-grow'}>
+        <Routes>
+          <Route path='/' element={<Navigate to='/home' />} />
+          <Route path='/home' element={<HomePage />} />
+          <Route path='/search' element={<SearchBookPage />} />
+          <Route path={'/checkout/:bookId'} element={<BookCheckoutPage />} />
+        </Routes>
+      </div>
       <Footer />
-      <SearchBookPage />
-    </>
+    </div>
   );
 }

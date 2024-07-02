@@ -1,5 +1,6 @@
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   const [nav, setNav] = useState(true);
@@ -9,18 +10,24 @@ const Navbar = () => {
   };
 
   return (
-    <div className={'flex justify-between items-center text-white bg-black p-3 h-24'}>
-      <h1 className={'w-full text-3xl font-bold text-white'}>Luv 2 Read</h1>
+    <div className={'flex justify-between items-center text-white bg-black p-3 h-28'}>
+      <h1 className={'w-full text-6xl font-extrabold text-white'}>Luv 2 Read</h1>
       <ul className={'hidden md:flex justify-between items-center'}>
         <li className={'p-4'}>
-          <a href='' className={'whitespace-nowrap'}>
+          <NavLink
+            to={'/home'}
+            className={({ isActive }) => (isActive ? 'whitespace-nowrap text-blue-500' : 'whitespace-nowrap')}
+          >
             Home
-          </a>
+          </NavLink>
         </li>
         <li className={'p-4'}>
-          <a href='' className={'whitespace-nowrap'}>
+          <NavLink
+            to={'/search'}
+            className={({ isActive }) => (isActive ? 'whitespace-nowrap text-blue-500' : 'whitespace-nowrap')}
+          >
             Search Books
-          </a>
+          </NavLink>
         </li>
         <li className={'p-4'}>
           <a href='' className={'whitespace-nowrap'}>

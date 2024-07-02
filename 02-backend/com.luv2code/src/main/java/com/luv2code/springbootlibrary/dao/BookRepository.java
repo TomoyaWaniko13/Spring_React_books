@@ -17,4 +17,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     // additional information about the data like the total number of pages, whether it is the
     // first or the last page, and so on.
     Page<Book> findByTitleContaining(@RequestParam("title") String title, Pageable pageable);
+
+    Page<Book> findByCategory(@RequestParam("category") String category, Pageable pageable);
 }

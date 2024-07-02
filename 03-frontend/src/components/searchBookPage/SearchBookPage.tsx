@@ -1,6 +1,6 @@
 import BookModel from '../../models/BookModel.ts';
 import { useEffect, useState } from 'react';
-import { Button, buttonVariants } from '../ui/button.tsx';
+import { Button } from '../ui/button.tsx';
 import BookPagination from './BookPagination.tsx';
 import SearchBar from '../SearchBar.tsx';
 import BookList from '../BookList.tsx';
@@ -15,7 +15,7 @@ const SearchBookPage = () => {
   const [totalAmountOfBooks, setTotalAmountOfBooks] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-  const [category, setCategory] = useState('bottom');
+  const [category, setCategory] = useState('All');
 
   const [searchInput, setSearchInput] = useState('');
   const [searchUrl, setSearchUrl] = useState('');
@@ -24,16 +24,17 @@ const SearchBookPage = () => {
     const fetchBooks = async () => {
       const baseUrl: string = 'http://localhost:8080/api/books';
 
-      let url: string = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
+      let completeUrl: string = '';
 
       if (searchUrl === '') {
-        url = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
+        completeUrl = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
       } else {
-        url = baseUrl + searchUrl;
+        let searchWithPage = searchUrl.replace('<pageNumber>', `${currentPage - 1}`);
+        completeUrl = baseUrl + searchWithPage;
       }
 
       try {
-        const response = await fetch(url);
+        const response = await fetch(completeUrl);
         if (!response.ok) {
           throw new Error('Something went wrong!');
         }
@@ -75,10 +76,27 @@ const SearchBookPage = () => {
   }
 
   const handleSearchChange = () => {
+    setCurrentPage(1);
     if (searchInput === '') {
       setSearchUrl('');
     } else {
-      setSearchUrl(`/search/findByTitleContaining?title=${searchInput}&page=0&size=${booksPerPage}`);
+      setSearchUrl(`/search/findByTitleContaining?title=${searchInput}&page=<pageNumber>&size=${booksPerPage}`);
+    }
+  };
+
+  const handleCategoryChange = (inputCategory: string) => {
+    setCurrentPage(1);
+    if (
+      inputCategory.toLowerCase() === 'fe' ||
+      inputCategory.toLowerCase() === 'be' ||
+      inputCategory.toLowerCase() === 'data' ||
+      inputCategory.toLowerCase() === 'devops'
+    ) {
+      setCategory(inputCategory);
+      setSearchUrl(`/search/findByCategory?category=${inputCategory}&page=<pageNumber>&size=${booksPerPage}`);
+    } else {
+      setCategory('All');
+      setSearchUrl(`?page=0&size=${booksPerPage}`);
     }
   };
 
@@ -97,7 +115,7 @@ const SearchBookPage = () => {
         setSearchInput={setSearchInput}
         handleSearchChange={handleSearchChange}
         category={category}
-        setCategory={setCategory}
+        handleCategoryChange={handleCategoryChange}
       />
 
       {totalAmountOfBooks ? (
@@ -111,7 +129,7 @@ const SearchBookPage = () => {
           <BookList books={books} />
         </>
       ) : (
-        <div className={'flex flex-col justify-center items-center space-y-4'}>
+        <div className={'flex flex-col justify-center items-center w-full h-96 space-y-8 p-10'}>
           <h3 className={'font-bold text-5xl'}>Can't find what you are looking for??</h3>
           <Button variant={'default'} size={'lg'} className={'max-w-1/2'}>
             <a href=''>Library Service</a>
