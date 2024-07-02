@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu.tsx';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card.tsx';
-import Pagination from './BookPagination.tsx';
+import BookPagination from './BookPagination.tsx';
 
 const SearchBookPage = () => {
   const [books, setBooks] = useState<BookModel[]>([]);
@@ -64,7 +64,7 @@ const SearchBookPage = () => {
     };
 
     fetchBooks();
-  }, []);
+  }, [currentPage]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -76,7 +76,9 @@ const SearchBookPage = () => {
 
   const indexOfLastBook: number = currentPage * booksPerPage;
   const indexOfFirstBook: number = indexOfLastBook - booksPerPage;
-  let lastItem = booksPerPage * currentPage <= totalAmountOfBooks ? booksPerPage * currentPage : totalAmountOfBooks;
+
+  let lastItemIndex =
+    booksPerPage * currentPage <= totalAmountOfBooks ? booksPerPage * currentPage : totalAmountOfBooks;
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -103,19 +105,21 @@ const SearchBookPage = () => {
         </DropdownMenu>
       </div>
       <div className={'flex flex-col w-full space-y-3'}>
-        <h3 className={'font-bold text-2xl'}>Number of results: (22)</h3>
-        <p>1 to 5 of 22 items:</p>
+        <h3 className={'font-bold text-2xl'}>Number of results: ({totalAmountOfBooks})</h3>
+        <p>
+          {indexOfFirstBook + 1} to {lastItemIndex} of {totalAmountOfBooks} items:
+        </p>
       </div>
       <div>
-        {books.slice(0, 6).map((book) => (
-          <Card className={'flex flex-row   justify-center space-y-3 p-6'}>
+        {books.map((book) => (
+          <Card key={book.id} className={'flex flex-row justify-center space-y-3 p-6'}>
             <CardHeader className={'flex flex-col space-x-10'}>
               <CardTitle>
                 <img src={book.img} alt='' />
               </CardTitle>
-              <CardDescription>
-                <p>{book.author}</p>
-                <p>{book.title}</p>
+              <CardDescription className={'flex flex-col justify-start'}>
+                <span>{book.author}</span>
+                <span>{book.title}</span>
               </CardDescription>
             </CardHeader>
             <CardContent className={'max-w-2xl flex flex-col space-y-4'}>
@@ -124,8 +128,7 @@ const SearchBookPage = () => {
             </CardContent>
           </Card>
         ))}
-        {/* Only render <Pagination/> if totalPages > 1 */}
-        {totalPages > 1 && <Pagination currentPage={currentPage} totalPages={totalPages} paginate={paginate} />}
+        {totalPages > 1 && <BookPagination currentPage={currentPage} totalPages={totalPages} paginate={paginate} />}
       </div>
     </div>
   );

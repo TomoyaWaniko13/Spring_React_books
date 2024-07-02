@@ -10,8 +10,8 @@ const ReturnBook: React.FC<{ book: BookModel }> = (props) => {
         <img src={props.book.img} alt='' />
       </div>
       <div>
-        <h6 className={'mt-2 text-xl'}>{props.book.title}</h6>
-        <p className={'text-xl'}>{props.book.author}</p>
+        <div className={'mt-2 text-xl'}>{props.book.title}</div>
+        <div className={'text-xl'}>{props.book.author}</div>
       </div>
       <div className='flex justify-center space-x-4'>
         <Button variant={'default'} size={'lg'}>
