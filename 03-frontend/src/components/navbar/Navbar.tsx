@@ -11,8 +11,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={'flex justify-end items-center text-white bg-black px-10 h-28'}>
-      <h1 className={'w-full text-3xl sm:text-4xl font-extrabold text-white'}>Luv 2 Read</h1>
+    <nav className={'flex items-center text-white bg-black px-10 h-28'}>
+      <h1 className={'w-full text-4xl font-extrabold text-white'}>Luv 2 Read</h1>
       <ul className={'hidden md:flex justify-between items-center'}>
         <li className={'p-4'}>
           <NavLink
@@ -44,10 +44,20 @@ const Navbar = () => {
               <SheetTitle>
                 <ul>
                   <li className={'p-4 border-b border-gray-400'}>
-                    <a href=''>Home</a>
+                    <NavLink
+                      to={'/home'}
+                      className={({ isActive }) => (isActive ? 'whitespace-nowrap text-blue-500' : 'whitespace-nowrap')}
+                    >
+                      Home
+                    </NavLink>
                   </li>
                   <li className={'p-4 border-b border-gray-400'}>
-                    <a href=''>Search Books</a>
+                    <NavLink
+                      to={'/search'}
+                      className={({ isActive }) => (isActive ? 'whitespace-nowrap text-blue-500' : 'whitespace-nowrap')}
+                    >
+                      Search Books
+                    </NavLink>
                   </li>
                   <li className={'p-4 border-b border-gray-400'}>
                     <a href=''>Sign in</a>

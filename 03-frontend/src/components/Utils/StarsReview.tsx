@@ -1,5 +1,5 @@
 import { FaStar } from 'react-icons/fa';
-import { FaRegStar, FaStarHalf } from 'react-icons/fa6';
+import { IoIosStarHalf, IoIosStarOutline } from 'react-icons/io';
 
 interface StarsReviewProps {
   rating: number;
@@ -7,40 +7,22 @@ interface StarsReviewProps {
 }
 
 const StarsReview: React.FC<StarsReviewProps> = ({ rating, size }) => {
-  // TODO restart from this part.
-  let rating = rating;
-  let fullStars = 0;
-  let halfStars = 0;
-  let emptyStars = 0;
-
-  if (rating !== undefined && rating > 0 && rating <= 5) {
-    for (let i = 0; i <= 4; i++) {
-      if (rating - 1 >= 0) {
-        fullStars = fullStars + 1;
-        rating = rating - 1;
-      } else if (rating === 0.5) {
-        halfStars = halfStars + 1;
-        rating = rating - 0.5;
-      } else if (rating === 0) {
-        emptyStars = emptyStars + 1;
-      } else {
-        break;
-      }
-    }
-  }
+  const fullStars = Math.floor(rating);
+  const halfStars = rating % 1 === 0.5 ? 1 : 0;
+  const emptyStars = 5 - fullStars - halfStars;
 
   return (
-    <div className={'flex flex-row'}>
-      {Array.from({ length: 3 }, (_, i) => (
+    <article className={'flex flex-row'}>
+      {Array.from({ length: fullStars }, (_, i) => (
         <FaStar size={30} color={'gold'} key={i} />
       ))}
-      {Array.from({ length: 1 }, (_, i) => (
-        <FaStarHalf size={30} color={'gold'} key={i} />
+      {Array.from({ length: halfStars }, (_, i) => (
+        <IoIosStarHalf size={30} color={'gold'} key={i} />
       ))}
-      {Array.from({ length: 1 }, (_, i) => (
-        <FaRegStar size={30} color={'gold'} key={i} />
+      {Array.from({ length: emptyStars }, (_, i) => (
+        <IoIosStarOutline size={30} color={'gold'} key={i} />
       ))}
-    </div>
+    </article>
   );
 };
 

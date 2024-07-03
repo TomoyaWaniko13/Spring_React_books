@@ -11,12 +11,15 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
   return (
     <section>
       {books.map((book) => (
-        <article key={book.id} className={'flex flex-row justify-center space-y-3 p-6'}>
-          <CardHeader className={'flex flex-col space-x-10'}>
+        <article
+          key={book.id}
+          className={'flex flex-col lg:flex-row items-center lg:items-start justify-center space-y-3 p-6'}
+        >
+          <CardHeader className={'flex flex-col items-start justify-start space-x-10'}>
             <CardTitle>
               <img src={book.img} alt={`${book.title} cover`} />
             </CardTitle>
-            <CardDescription className={'flex flex-col justify-start'}>
+            <CardDescription className={'flex flex-col justify-start　items-start'}>
               <span>{book.author}</span>
               <span>{book.title}</span>
             </CardDescription>

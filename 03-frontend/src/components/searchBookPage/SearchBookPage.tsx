@@ -29,7 +29,7 @@ const SearchBookPage = () => {
       if (searchUrl === '') {
         completeUrl = `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`;
       } else {
-        let searchWithPage = searchUrl.replace('<pageNumber>', `${currentPage - 1}`);
+        const searchWithPage = searchUrl.replace('<pageNumber>', `${currentPage - 1}`);
         completeUrl = baseUrl + searchWithPage;
       }
 
@@ -103,7 +103,7 @@ const SearchBookPage = () => {
   const indexOfLastBook: number = currentPage * booksPerPage;
   const indexOfFirstBook: number = indexOfLastBook - booksPerPage;
 
-  let lastItemIndex =
+  const lastItemIndex =
     booksPerPage * currentPage <= totalAmountOfBooks ? booksPerPage * currentPage : totalAmountOfBooks;
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
