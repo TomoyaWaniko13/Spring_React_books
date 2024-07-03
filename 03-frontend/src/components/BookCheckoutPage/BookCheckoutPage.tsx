@@ -3,6 +3,7 @@ import BookModel from '../../models/BookModel.ts';
 import StarsReview from '../Utils/StarsReview.tsx';
 import CheckoutAndReview from './CheckoutAndReview.tsx';
 import ReviewModel from '../../models/ReviewModel.ts';
+import LatestReviews from './LatestReviews.tsx';
 
 const BookCheckoutPage = () => {
   const [book, setBook] = useState<BookModel>();
@@ -51,7 +52,7 @@ const BookCheckoutPage = () => {
 
   useEffect(() => {
     const fetchBookReviews = async () => {
-      const reviewUrl: string = `http//localhost:8080/api/reviews/search/findByBookId=${bookId}`;
+      const reviewUrl: string = `http://localhost:8080/api/reviews/search/findByBookId?bookId=${bookId}`;
       const responseReviews = await fetch(reviewUrl);
 
       if (!responseReviews.ok) {
@@ -101,19 +102,22 @@ const BookCheckoutPage = () => {
   }
 
   return (
-    <section className={'px-10 py-10 flex flex-col lg:flex-row justify-center items-center space-x-10 space-y-10'}>
-      <div className={'basis-2/12'}>
-        <img src={book?.img} alt='' width={300} />
+    <section className={'flex flex-col'}>
+      <div className={'px-10 py-10 flex flex-col lg:flex-row justify-center items-center space-x-10 space-y-10'}>
+        <div className={'basis-2/12'}>
+          <img src={book?.img} alt='' width={300} />
+        </div>
+        <div className={'basis-6/12 flex flex-col space-y-4'}>
+          <h2 className={'text-4xl font-extrabold'}>{book?.title}</h2>
+          <span className={'text-xl font-normal'}>{book?.author}</span>
+          <p className={'text-xl font-extralight'}>{book?.description}</p>
+          <StarsReview rating={4} size={1} />
+        </div>
+        <div className={'basis-4/12'}>
+          <CheckoutAndReview book={book} />
+        </div>
       </div>
-      <div className={'basis-6/12 flex flex-col space-y-4'}>
-        <h2 className={'text-4xl font-extrabold'}>{book?.title}</h2>
-        <span className={'text-xl font-extralight '}>{book?.author}</span>
-        <p className={'text-xl'}>{book?.description}</p>
-        <StarsReview rating={4} size={1} />
-      </div>
-      <div className={'basis-4/12'}>
-        <CheckoutAndReview book={book} />
-      </div>
+      <LatestReviews reviews={reviews} bookId={book?.id} />
     </section>
   );
 };
