@@ -2,6 +2,7 @@ import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../ui/sheet.tsx';
+import LoginOrLogoutButtons from '../auth/login-or-logout-buttons.tsx';
 
 const Navbar = () => {
   const [nav, setNav] = useState(true);
@@ -11,7 +12,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={'flex items-center text-white bg-black px-10 h-28'}>
+    // TODO fix the sticky navbar with the <BookCarousel /> component.
+    <nav className={'flex items-center text-white bg-black px-10 h-20 sticky top-0'}>
       <h1 className={'w-full text-4xl font-extrabold text-white'}>Luv 2 Read</h1>
       <ul className={'hidden md:flex justify-between items-center'}>
         <li className={'p-4'}>
@@ -30,10 +32,8 @@ const Navbar = () => {
             Search Books
           </NavLink>
         </li>
-        <li className={'p-4'}>
-          <a href='' className={'whitespace-nowrap'}>
-            Sign in
-          </a>
+        <li>
+          <LoginOrLogoutButtons />
         </li>
       </ul>
       <div onClick={handleNav} className={'block md:hidden'}>
@@ -58,9 +58,6 @@ const Navbar = () => {
                     >
                       Search Books
                     </NavLink>
-                  </li>
-                  <li className={'p-4 border-b border-gray-400'}>
-                    <a href=''>Sign in</a>
                   </li>
                 </ul>
               </SheetTitle>

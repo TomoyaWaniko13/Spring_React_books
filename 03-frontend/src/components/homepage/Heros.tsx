@@ -1,4 +1,4 @@
-import { Button } from '../ui/button.tsx';
+import SignupOrExploreButtons from '../auth/signup-or-explore-buttons.tsx';
 
 const Heros = () => {
   return (
@@ -13,7 +13,7 @@ const Heros = () => {
             The library team would love to know hat you have been reading. Whether it is to learn a new skill or grow
             within one, we will be able to provide the top content for you!
           </p>
-          <Button size={'lg'}>Sign up</Button>
+          <SignupOrExploreButtons />
         </div>
       </div>
       <div className={'flex flex-col lg:flex-row'}>

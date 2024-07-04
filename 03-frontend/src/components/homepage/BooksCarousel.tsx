@@ -69,7 +69,7 @@ const BooksCarousel = () => {
                     <h6 className={'mt-2 text-xl'}>{book.title}</h6>
                     <p className={'text-xl'}>{book.author}</p>
                     <Button variant={'default'} size={'lg'}>
-                      reserve
+                      <Link to={`/checkout/${book.id}`}>reserve</Link>
                     </Button>
                   </CardContent>
                 </Card>

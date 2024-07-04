@@ -4,8 +4,15 @@ import SearchBookPage from './components/searchBookPage/SearchBookPage.tsx';
 import HomePage from './components/homepage/HomePage.tsx';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import BookCheckoutPage from './components/BookCheckoutPage/BookCheckoutPage.tsx';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export default function App() {
+  const { isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <div className='page-layout'>loading</div>;
+  }
+
   return (
     <div className={'flex flex-col min-h-screen'}>
       <Navbar />

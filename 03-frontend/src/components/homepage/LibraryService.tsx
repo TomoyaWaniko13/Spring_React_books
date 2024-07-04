@@ -1,5 +1,6 @@
 import { Button } from '../ui/button.tsx';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card.tsx';
+import SignupOrExploreButtons from '../auth/signup-or-explore-buttons.tsx';
 
 const LibraryService = () => {
   return (
@@ -12,9 +13,7 @@ const LibraryService = () => {
           <p>If you cannot find what you are looking for, send our library admin's a personal message!</p>
         </CardContent>
         <CardFooter className='flex justify-center'>
-          <Button variant={'default'} size={'lg'}>
-            sign up
-          </Button>
+          <SignupOrExploreButtons />
         </CardFooter>
       </Card>
     </div>
